@@ -1,5 +1,5 @@
 package com.example.sked;
-
+/*
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.ProgressDialog;
@@ -57,3 +57,4 @@ public abstract class MessageRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 }
+*/

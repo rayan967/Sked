@@ -3,28 +3,16 @@ package com.example.sked;
 import java.util.Date;
 import android.graphics.Bitmap;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "message_list")
+
 public class Message {
-    @PrimaryKey
-    @ColumnInfo(name = "message_id")
-    @NonNull
+
     private String id;
-    @ColumnInfo(name = "user_message")
     private String userMessage;
-    @ColumnInfo(name = "bot_message")
     private String botMessage;
-    @ColumnInfo(name = "option_message")
     private String optionMessage;
-    @ColumnInfo(name = "side")
     private String side;
-    @ColumnInfo(name = "message_time")
     private Date currentTime;
 
 

@@ -1,12 +1,14 @@
 package com.example.sked;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     int flag=0;
     private MaterialButton sendButton;
     private EditText editTextChatbox;
+    private MessageViewModel mViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         messageRecycler.setHasFixedSize(true);
         messageRecycler.setLayoutManager(new LinearLayoutManager(this));
         messageListAdapter = new MessageListAdapter(mContext, messages);
-
+        mViewModel = new ViewModelProvider(this).get(MessageViewModel.class);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
                     if(editTextChatbox.getText().toString().equals(""))
                         return;
                 else
-                        messages.add(new Message(String.valueOf(editTextChatbox.getText()),null, "right", Calendar.getInstance().getTime()));}
+                        messages.add(new Message(String.valueOf(editTextChatbox.getText()),null, "right", Calendar.getInstance().getTime()));
+                        messageRecycler.setAdapter(messageListAdapter);
+                        messageRecycler.scrollToPosition(messages.size()-1);
+                }
                 else if(flag==1)
                     {
                         messages.remove(messages.size()-1);
@@ -79,6 +85,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(String userMessage){
+
+        editTextChatbox.setText("");
+        String arr[];
+        try {
+            arr=mViewModel.sendbotmessage(userMessage);
+            for (String i:arr) {
+                messages.add(new Message(null,i, "left", Calendar.getInstance().getTime()));
+                messageRecycler.setAdapter(messageListAdapter);
+                messageRecycler.scrollToPosition(messages.size()-1);
+            }
+
+        }catch (Exception e){
+            Log.e("Exception",e.toString());
+        }
+
+
+
 /* Demo Code
         switch (i) {
             case 0: messages.add(new Message(null,"Sure, please select from the items below things you have already have", "left", Calendar.getInstance().getTime()));
@@ -98,6 +121,5 @@ public class MainActivity extends AppCompatActivity {
         }
         i++;
 */
-        editTextChatbox.setText("");
     }
 }
