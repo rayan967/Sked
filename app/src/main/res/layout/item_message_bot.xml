@@ -15,6 +15,8 @@
         android:maxWidth="250dp"
         android:padding="8dp"
         android:textColor="#ffffff"
+        android:autoLink="web"
+        android:textColorLink="#7B2D26"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />

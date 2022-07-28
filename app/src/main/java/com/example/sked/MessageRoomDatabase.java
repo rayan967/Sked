@@ -1,5 +1,5 @@
 package com.example.sked;
-/*
+
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.ProgressDialog;
@@ -18,7 +18,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
-
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,9 +52,13 @@ public abstract class MessageRoomDatabase extends RoomDatabase {
                             .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .build();
+
+                    if (INSTANCE.messageDao().getAllRowsL().size() == 0) {
+                        Gson gson = new Gson();
+                        INSTANCE.messageDao().insert(new Message(null, "Hi! I'm Sked! Your personal assistant for relocation to Germany related questions. Ask me a question and I'll do my best to answer it.", "left", gson.toJson(Calendar.getInstance().getTime())));
+                    }
                 }
             }
         return INSTANCE;
     }
 }
-*/

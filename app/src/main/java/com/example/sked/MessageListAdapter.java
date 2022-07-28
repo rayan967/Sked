@@ -2,6 +2,7 @@ package com.example.sked;
 
 
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
 import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
@@ -123,9 +126,11 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
 
         void bind(Message message){
-            messageText.setText(message.getUserMessage());
+            messageText.setText(Html.fromHtml(message.getUserMessage()));
             DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
-            timeText.setText(dateFormat.format(message.getCurrentTime()));
+            Gson gson = new Gson();
+            Date myClass = gson.fromJson(message.getCurrentTime(), Date.class);
+            timeText.setText(dateFormat.format(myClass));
         }
     }
 
@@ -139,9 +144,11 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
 
         void bind(Message message){
-            messageText.setText(message.getBotMessage());
+            messageText.setText(Html.fromHtml(message.getBotMessage()));
             DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
-            timeText.setText(dateFormat.format(message.getCurrentTime()));
+            Gson gson = new Gson();
+            Date myClass = gson.fromJson(message.getCurrentTime(), Date.class);
+            timeText.setText(dateFormat.format(myClass));
         }
 
     }
@@ -166,6 +173,12 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             cb2.setText(split[1]);
         }
     }
+
+    public void setRows(List<Message> alList) {
+        this.messageList = alList;
+        notifyDataSetChanged();
+    }
+
 
 
 }

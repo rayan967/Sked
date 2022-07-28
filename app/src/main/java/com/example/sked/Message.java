@@ -3,20 +3,37 @@ package com.example.sked;
 import java.util.Date;
 import android.graphics.Bitmap;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 
-
+@Entity(tableName = "message_list")
 public class Message {
 
-    private String id;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "anime_id")
+    @NonNull
+    private int id;
+
+    @ColumnInfo(name = "userMessage")
     private String userMessage;
+
+    @ColumnInfo(name = "botMessage")
     private String botMessage;
+
+    @ColumnInfo(name = "optionMessage")
     private String optionMessage;
+
+    @ColumnInfo(name = "side")
     private String side;
-    private Date currentTime;
+
+    @ColumnInfo(name = "currentTime")
+    private String currentTime;
 
 
-    public Message(String userMessage, String botMessage, String side, Date currentTime) {
+    public Message(String userMessage, String botMessage, String side, String currentTime) {
         this.userMessage = userMessage;
         this.botMessage = botMessage;
         this.side = side;
@@ -25,11 +42,11 @@ public class Message {
 
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -67,11 +84,11 @@ public class Message {
 
 
 
-    public Date getCurrentTime() {
+    public String getCurrentTime() {
         return currentTime;
     }
 
-    public void setCurrentTime(Date currentTime) {
+    public void setCurrentTime(String currentTime) {
         this.currentTime = currentTime;
     }
 }
